@@ -1,5 +1,5 @@
-import numpy as np
 
+############
 class prog:
     def __init__(self, scheme, coefficient):
         '''scheme is defined as followed
@@ -8,10 +8,10 @@ class prog:
         -----------
         scheme :
             An array defined by the succession of Operand terms and
-            Structure terms
-            ex : [Structure, Operand, Structure, Operand, Structure]
-                 [u_n-1, ^, n, +, 5, *, u_n-3]
-
+            pseudo_const terms
+            ex : [Pseudo Constant, Operand, Pseudo Constant, Pseudo Constant, Operand, Pseudo Constant]
+                 [u_n-1, ^, n, 5, *, u_n-3]
+            by default the operand between two adjacents Structure is addition
         coefficient :
             An array linked which each terms representing the multiplicative
             coefficient of the Structure term
