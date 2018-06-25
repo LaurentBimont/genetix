@@ -15,7 +15,7 @@ class Operand:
     def __init__(self, inputs=[]):
         self.input_nodes = inputs
         self.ouput = []
-        
+
     def compute(self):
         pass
 
@@ -44,7 +44,7 @@ class Multiplication(Operand):
         self.inputs = [a_var, b_var]
         return(self.inputs[0]*self.inputs[1])
 
-############ Structure Super Class ##################
+############ Pseudo Constant Class ##################
 class PseudoConst:
     '''Differents types of constant, some need to know at wich n we are, output a value at this step'''
     def __init__(self):
@@ -84,8 +84,12 @@ class Term(PseudoConst):
         self.a = a
 
     def return_value(self):
-        return(_default_graph.y_true[_default_graph.n - self.a])
-
+        if _default_graph.n - self.a >= 0:
+            return(_default_graph.y_true[_default_graph.n - self.a])
+        else:
+            print('increase the starting number')
+            return(0)
+############ Coefficient Class ##################
 class Coefficient:
     def __init__(self, name):
         self.output = None
@@ -95,9 +99,8 @@ class Coefficient:
 class Graph:
     def __init__(self, y_true, n):
         self.y_true = y_true
-        self.n = n
+        self.n = n                   # rank to compute in the graph
         self.output = None
-
 
     def set_default_graph(self):
         global _default_graph
@@ -133,7 +136,6 @@ if __name__ == '__main__':
         prog.append(2*prog[-1] + i**2)
 
     print(prog[:5])
-
     g = Graph(prog, 4)
     g.set_default_graph()
     Te = Coefficient('fal')
@@ -146,4 +148,5 @@ if __name__ == '__main__':
     F = Puissance(C,D)
     G = Addition(E,F)
     test = [0]
-    print(g.value(G, dict = {'fal':2}))
+
+    print(g.value(G, dict = {'fal':3}))
