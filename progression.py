@@ -27,6 +27,7 @@ class prog:
         self.scheme = scheme
         self.true = true
         self.coef_name_list = 'abcdefghijklmnopqrstuvwxyz'           # Coefficients are named thanks to a letter
+        self.generate_progression()
 
     def operand_graph(self, typ, a, b):
         if typ == '+':
@@ -70,6 +71,7 @@ class prog:
         self.dict_coef = {}
         for i in range(len(coef)):
             self.dict_coef[self.coef_name_list[i]] = coef[i]
+        self.set_up_df()
 
     def set_up_df(self):
         pandas_dict = {'true':self.true}
@@ -88,12 +90,9 @@ class prog:
         new_df['difference'] = new_df.apply(self.difference, axis = 1)
         return(new_df['difference'].sum())
 
-
 if __name__ == '__main__':
 
     test = prog([sc.Constant(2), '+', sc.Term(1), '+', sc.Nconstant(1), '+', sc.Term(5)], [1,3,5,6,5,4,2,5,8,5,6,5,2,5])
-    test.generate_progression()
     test.generate_graph([1,1,1,1])
-    test.set_up_df()
     test.fitness()
     #print(test.generate_progression().value(G, dict = {'fal':3}))

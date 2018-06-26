@@ -1,7 +1,6 @@
 '''
-
-
-
+This class is made to compute efficiently a graph that represents a progression, It allows to change fastly the different coefficients.
+It also offers the flexibility needed by a genetic algorithm to try different scheme and to find new ones. 
 '''
 
 
