@@ -1,6 +1,6 @@
 '''
 This class is made to compute efficiently a graph that represents a progression, It allows to change fastly the different coefficients.
-It also offers the flexibility needed by a genetic algorithm to try different scheme and to find new ones. 
+It also offers the flexibility needed by a genetic algorithm to try different scheme and to find new ones.
 '''
 
 
@@ -86,8 +86,9 @@ class Term(PseudoConst):
         if _default_graph.n - self.a >= 0:
             return(_default_graph.y_true[_default_graph.n - self.a])
         else:
-            print('increase the starting number')
+            print('increase the starting number, can not compute U_n-',self.a,' because first value is for n = ',_default_graph.n)
             return(0)
+
 ############ Coefficient Class ##################
 class Coefficient:
     def __init__(self, name):
@@ -97,8 +98,12 @@ class Coefficient:
 ########### Graph ###############
 class Graph:
     def __init__(self, y_true, n):
+        '''
+        y_true : true progrssion
+        n : rank at which we are, useful to compute n-1 ou u_n-1
+        '''
         self.y_true = y_true
-        self.n = n                   # rank to compute in the graph
+        self.n = n
         self.output = None
 
     def set_default_graph(self):
@@ -119,7 +124,7 @@ class Graph:
         return(node.output)
 
     def compute_graph_structure(self, operand):
-        '''This function is adapted from a complete-guide-to-tensorflow-for-deep-learning-with-python Udemy lecture'''
+        ''''''
         nodes_postorder = []
         def recurse(node):
             if isinstance(node, Operand):
